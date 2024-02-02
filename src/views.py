@@ -6,6 +6,7 @@ from datetime import datetime
 
 @csrf_exempt
 def handle_video(request):
+    
     if request.method == 'POST':
         video_chunk = request.FILES.get('chunks')
         if video_chunk:
@@ -32,5 +33,4 @@ def handle_video(request):
 
         else:
             return JsonResponse({'status': 'error', 'message': 'No file received'})
-    else:
-        return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+    

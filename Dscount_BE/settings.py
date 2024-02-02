@@ -40,12 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'src',
+    'channels',
     # 'storages',
 
     # 'corsheaders',
 
 ]
-
+ASGI_APPLICATION = 'myproject.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Cloudinary configuration
 cloudinary.config(
   cloud_name = 'dfg5qp5oz',
