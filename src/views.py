@@ -12,22 +12,27 @@ from datetime import datetime
 def handle_video(request):
     if request.method == 'POST':
         video_chunk = request.FILES.get('chunks')
-        if video_chunk:
-            current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-            file_name = f'webcam_{current_time}.mp4'  
+        print("===================",type(video_chunk))
+        try:
+            if video_chunk:
+                
+                current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+                file_name = f'webcam_{current_time}.mp4'  
 
-            upload_result = cloudinary.uploader.upload_large(
-                video_chunk,
-                resource_type='video',
-                public_id=file_name
-            )
+                upload_result = cloudinary.uploader.upload_large(
+                    video_chunk,
+                    resource_type='video',
+                    public_id=file_name
+                )
 
-            if upload_result.get('secure_url'):
-                print(upload_result['secure_url'])
-                return JsonResponse({'status': 'success', 'url': upload_result['secure_url']})
+                if upload_result.get('secure_url'):
+                    print(upload_result['secure_url'])
+                    return JsonResponse({'status': 'success', 'url': upload_result['secure_url']})
+                else:
+                    return JsonResponse({'status': 'error', 'message': 'Upload failed'})
             else:
-                return JsonResponse({'status': 'error', 'message': 'Upload failed'})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'No file received'})
+                return JsonResponse({'status': 'error', 'message': 'No file received'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request'})
