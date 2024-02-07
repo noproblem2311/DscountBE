@@ -1,9 +1,10 @@
 from django.db import models
 
-class UploadedVideo(models.Model):
-    file_name = models.CharField(max_length=255, unique=True)  # Unique name of the file
-    upload_time = models.DateTimeField(auto_now_add=True)  # Automatically set the time when the object is created
-    video_url = models.URLField()  # The secure URL to access the video
-
+class VideoTranscription(models.Model):
+    video_url = models.URLField(max_length=1024, verbose_name="Video URL")
+    transcript = models.TextField(verbose_name="Transcription", blank=True, null=True)
+    upload_time = models.DateTimeField(auto_now_add=True, verbose_name="Upload Time")
+    transcription_time = models.DateTimeField(blank=True, null=True, verbose_name="Transcription Completed Time")
+    note = models.TextField(verbose_name="Note", blank=True, null=True)
     def __str__(self):
-        return self.file_name
+        return f"Video uploaded on {self.upload_time.strftime('%Y-%m-%d %H:%M:%S')}"
