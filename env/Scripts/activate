@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\diskD\code\work2\extention\BE\Dscount_BE\env"
+VIRTUAL_ENV="C:\diskD\code\work2\extention\gitlab\dscout-backend\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
